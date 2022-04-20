@@ -1,0 +1,15 @@
+C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\bin\Debug\HciMiniProject.exe.config
+C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\bin\Debug\HciMiniProject.exe
+C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\bin\Debug\HciMiniProject.pdb
+C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.csprojAssemblyReference.cache
+C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\MainWindow.g.cs
+C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\App.g.cs
+C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject_MarkupCompile.cache
+C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject_MarkupCompile.lref
+C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\MainWindow.baml
+C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.g.resources
+C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.Properties.Resources.resources
+C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.csproj.GenerateResource.cache
+C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.csproj.CoreCompileInputs.cache
+C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.exe
+C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.pdb
