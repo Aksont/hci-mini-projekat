@@ -30,7 +30,7 @@
                 <Setter Property="Background" Value="#FFFF00"/>
             </Trigger>
             <Trigger Property="IsChecked" Value="False">
-                <Setter Property="Background" Value="#FFFFFF"/>
+                <Setter Property="Background" Value="Transparent"/>
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

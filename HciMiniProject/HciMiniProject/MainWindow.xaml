@@ -5,8 +5,65 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HciMiniProject"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="GDPer" Height="800" Width="1000" MinHeight="600" MinWidth="800" 
+        ResizeMode="CanResize"> 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--shadow for yellow header-->
+        <Border Grid.Column="2"
+                Margin="-15 0 0 4"
+            BorderBrush="Black"
+            BorderThickness="1"
+            CornerRadius="5">
+            <Border.Effect>
+                <DropShadowEffect />
+            </Border.Effect>
+        </Border>
+
+        <!--left grey column - menu -->
+        <Rectangle Grid.RowSpan="2">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#e0e0e0" Offset="0" />
+                    <GradientStop Color="#ededed" Offset="1" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <!--yellow header-->
+        <Rectangle Grid.Column="2" Fill="#FFFF00" />
+
+        <!--shadow for logo-->
+        <Border Margin="40,46,44,48"
+            BorderBrush="Black"
+            BorderThickness="1"
+            CornerRadius="15">
+            <Border.Effect>
+                <DropShadowEffect />
+            </Border.Effect>
+        </Border>
+        
+        <!--logo-->
+        <Rectangle Fill="#FFFF00" Margin="40,45,40,45" RadiusX="15" RadiusY="15"/>
+        <TextBlock Text="GDPer" Margin="50,52,40,45" FontSize="35"/>
+
+        <!--menu items-->
+        <StackPanel Grid.Row="1">
+            <RadioButton Content="GDP" Height="50" FontSize="35" 
+                            GroupName="menubar"
+                            Style="{StaticResource MenuStyle}"/>
+            <RadioButton Content="Treasure" Height="50" FontSize="35" 
+                            GroupName="menubar"
+                            Style="{StaticResource MenuStyle}"/>
+        </StackPanel>
     </Grid>
 </Window>
