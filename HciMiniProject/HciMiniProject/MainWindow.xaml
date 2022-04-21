@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HciMiniProject"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        d:DesignHeight="300" d:DataContext="{d:DesignInstance local:MainWindow}"
         mc:Ignorable="d"
         Title="GDPer" 
         Height="600" Width="1000" MinHeight="300" MinWidth="500" 
@@ -87,13 +89,17 @@
                 FontSize="20"
                 Margin="0 15 20 0"
                 Width="150" Height="50" 
-                Style="{StaticResource ButtonStyle}">
+                Style="{StaticResource ButtonStyle}"
+                Click="Button_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="15"/>
                 </Style>
             </Button.Resources>
         </Button>
+
+        <lvc:CartesianChart Grid.Column="1" Grid.Row="1"  Name="MyChart" Margin="20 80 20 20"
+                        Series="{Binding SeriesCollection}"/>
 
     </Grid>
 </Window>
