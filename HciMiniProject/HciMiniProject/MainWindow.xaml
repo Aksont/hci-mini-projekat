@@ -72,8 +72,8 @@
 
         <!--shadow for table button-->
         <Border Grid.Column="2" Grid.Row="0" 
-                HorizontalAlignment="Right" VerticalAlignment="Center"
-                Margin="5 16 23 0"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Margin="5 26 23 0"
                 Width="144" Height="45" 
             BorderBrush="Black"
             BorderThickness="1"
@@ -85,13 +85,42 @@
         
         <!-- table button -->
         <Button Grid.Column="2" Grid.Row="0" 
-                HorizontalAlignment="Right" VerticalAlignment="Center"
-                Content="Show table"
+                HorizontalAlignment="Right" VerticalAlignment="Top"
+                Content="Create chart"
                 FontSize="20"
-                Margin="0 15 20 0"
+                Margin="0 25 20 0"
                 Width="150" Height="50" 
                 Style="{StaticResource ButtonStyle}"
                 Click="Button_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <!--shadow for table button-->
+        <Border Grid.Column="2" Grid.Row="0" 
+                HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                Margin="5 0 23 15"
+                Width="144" Height="45" 
+            BorderBrush="Black"
+            BorderThickness="1"
+            CornerRadius="15">
+            <Border.Effect>
+                <DropShadowEffect />
+            </Border.Effect>
+        </Border>
+
+        <!-- table button -->
+        <Button Grid.Column="2" Grid.Row="0" 
+                HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                Content="Show table"
+                FontSize="20"
+                Margin="0 0 19 13"
+                Width="150" Height="50" 
+                Style="{StaticResource ButtonStyle}"
+                >
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="15"/>
