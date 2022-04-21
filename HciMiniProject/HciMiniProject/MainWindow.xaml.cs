@@ -25,7 +25,7 @@ namespace HciMiniProject
     public partial class MainWindow : Window
     {
 
-
+        public SeriesCollection SeriesCollection2 { get; set; }
         public SeriesCollection SeriesCollection { get; set; }
         public string[] BarLabels { get; set; }
         public Func<double, string> Formatter { get; set; }
@@ -65,7 +65,7 @@ namespace HciMiniProject
             {
                 Title = name,
                 Values = values,
-                DataLabels = true,
+                //DataLabels = true,
                 Stroke = Brushes.Yellow,
                 Fill = Brushes.Transparent,
                 ScalesYAt = 0
