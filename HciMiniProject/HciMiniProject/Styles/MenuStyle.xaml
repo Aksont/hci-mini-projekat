@@ -38,6 +38,7 @@
                     <Condition Property="IsChecked" Value="False"/>
                 </MultiTrigger.Conditions>
                 <Setter Property="Background" Value="#FFFF4d"/>
+                <Setter Property="Cursor" Value="Hand"/>
             </MultiTrigger>
         </Style.Triggers>
     </Style>
