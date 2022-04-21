@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HciMiniProject.API;
 using LiveCharts;
 using LiveCharts.Wpf;
 
@@ -23,39 +24,74 @@ namespace HciMiniProject
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-            PlotGraph();
-        }
 
-        private void PlotGraph()
-        {
-            SeriesCollection = new SeriesCollection();
-            var lineSeries1 = new LineSeries
-            {
-                Title = "S1",
-                Values = new ChartValues<double>() { 2.3, 2.0, 3.1, 1.3, 0.5, 3.8, 7.3, 2.4, 1.2, 0.1 },
-                DataLabels = true,
-                Stroke = Brushes.Green,
-                Fill = Brushes.Transparent,
-                ScalesYAt = 0
-            };
-            SeriesCollection.Add(lineSeries1);
-
-           // MyChart.AxisY.Add(new Axis());
-            //MyChart.AxisY.Add(new Axis());
-
-            DataContext = this;
-        }
 
         public SeriesCollection SeriesCollection { get; set; }
         public string[] BarLabels { get; set; }
         public Func<double, string> Formatter { get; set; }
 
+        public MainWindow()
+        {
+            InitializeComponent();
+            SeriesCollection = new SeriesCollection();
+            //PlotGraph("RealGDP", "annual", "billions of dollars", "");
+
+            PlotGraph("TREASURY_YIELD", "monthly", "", "10year");
+        }
+
+        private List<DataDateValue> getData(string name, string interval, string unit, string maturity)
+        {
+            if (name == "RealGDP")
+            {
+                return API.API.GetRealGDPData(interval, unit);
+            } else
+            {
+                Console.WriteLine(name);
+                return API.API.GetTreasuryYieldData(interval, maturity);
+            }
+        }
+
+        private void PlotGraph(string name, string interval, string unit, string maturity)
+        {
+            List<DataDateValue> data = getData(name, interval, unit, maturity);
+            ChartValues<double> values = new ChartValues<double>();
+            List<string> labels = new List<string>();
+            foreach (DataDateValue dataDateValue in data)
+            {
+                values.Add(dataDateValue.value);
+                labels.Add(dataDateValue.date);
+            }
+            var lineSeries1 = new LineSeries
+            {
+                Title = name,
+                Values = values,
+                DataLabels = true,
+                Stroke = Brushes.Yellow,
+                Fill = Brushes.Transparent,
+                ScalesYAt = 0
+            };
+
+            BarLabels = labels.ToArray();
+            //SeriesCollection.Clear();
+            SeriesCollection.Clear();
+            SeriesCollection.Add(lineSeries1);
+
+            Formatter = value => value.ToString("N");
+
+            MyChart.AxisX.Clear();
+            MyChart.AxisY.Clear();
+            MyChart.AxisX.Add(new Axis());
+            MyChart.AxisY.Add(new Axis());
+            MyChart.Update();
+
+            DataContext = this;
+        }
+
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            //PlotGraph("TREASURY_YIELD", "monthly", "", "10year");
+            PlotGraph("RealGDP", "annual", "billions of dollars", "");
         }
     }
 }

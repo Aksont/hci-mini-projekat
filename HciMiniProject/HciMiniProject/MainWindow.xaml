@@ -99,7 +99,14 @@
         </Button>
 
         <lvc:CartesianChart Grid.Column="1" Grid.Row="1"  Name="MyChart" Margin="20 80 20 20"
-                        Series="{Binding SeriesCollection}"/>
+                        Series="{Binding SeriesCollection}">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="X" Labels="{Binding BarLabels}"></lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Y" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
 
     </Grid>
 </Window>

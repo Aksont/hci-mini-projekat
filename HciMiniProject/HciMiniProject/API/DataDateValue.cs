@@ -8,8 +8,16 @@ namespace HciMiniProject.API
 {
     class DataDateValue
     {
-        private string date;
-        private double value;
+        public string date
+        {
+            get;
+            set;
+        }
+        public double value
+        {
+            get;
+            set;
+        }
 
         public DataDateValue(string date, double value)
         {
