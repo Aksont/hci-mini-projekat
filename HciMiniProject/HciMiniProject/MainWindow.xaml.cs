@@ -61,7 +61,7 @@ namespace HciMiniProject
             }
             double sizeOfRange = data.Count / 30;
             List<DataDateValue> values = new List<DataDateValue>();
-            for (int i=0; i<30; i++)
+            for (int i = 0; i < 30; i++)
             {
                 double sum = 0;
                 int startOfRange = Convert.ToInt32(sizeOfRange * i);
@@ -82,7 +82,8 @@ namespace HciMiniProject
             {
                 YAxisName = "Real GDP value";
                 return API.API.GetRealGDPData(interval, unit);
-            } else
+            }
+            else
             {
                 YAxisName = "Tresury yield value";
                 return API.API.GetTreasuryYieldData(interval, maturity);
@@ -170,5 +171,12 @@ namespace HciMiniProject
             PlotBarGraph(name, values, labels);
             PlotLineGraph(name, values, labels);
         }
+
+        private void Table_View_Click(object sender, RoutedEventArgs e)
+        {
+            TableWindow tableWindow = new TableWindow();
+            tableWindow.Show();
+        }
+
     }
 }

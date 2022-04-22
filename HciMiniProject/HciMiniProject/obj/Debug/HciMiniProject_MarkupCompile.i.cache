@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\
 HciMiniProject
 none
 false
 DEBUG;TRACE
-C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\App.xaml
-11151548125
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\App.xaml
+4115484145
 
-61434861427
-13-1505183044
-MainWindow.xaml;
+9-1035578348
+16599001972
+MainWindow.xaml;Styles\ButtonStyle.xaml;Styles\MenuStyle.xaml;TableView.xaml;
 
-True
+False
 

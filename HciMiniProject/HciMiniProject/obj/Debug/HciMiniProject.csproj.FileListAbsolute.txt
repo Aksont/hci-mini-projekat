@@ -13,3 +13,29 @@ C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciM
 C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.csproj.CoreCompileInputs.cache
 C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.exe
 C:\Faks\VI\HCI - Interakcija covek racunar\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.pdb
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\bin\Debug\HciMiniProject.exe.config
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\bin\Debug\HciMiniProject.exe
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\bin\Debug\HciMiniProject.pdb
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\bin\Debug\LiveCharts.dll
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\bin\Debug\LiveCharts.Wpf.dll
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\bin\Debug\LiveCharts.pdb
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\bin\Debug\LiveCharts.xml
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\bin\Debug\LiveCharts.Wpf.pdb
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\bin\Debug\LiveCharts.Wpf.xml
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.csproj.AssemblyReference.cache
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\MainWindow.g.cs
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\App.g.cs
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject_MarkupCompile.cache
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject_MarkupCompile.lref
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\App.baml
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\MainWindow.baml
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\Styles\ButtonStyle.baml
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\Styles\MenuStyle.baml
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.g.resources
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.Properties.Resources.resources
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.csproj.GenerateResource.cache
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.csproj.CoreCompileInputs.cache
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.exe
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\HciMiniProject.pdb
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\TableView.g.cs
+D:\Faks\6.semestar\HCI\nas_mini_proj\hci-mini-projekat\HciMiniProject\HciMiniProject\obj\Debug\TableView.baml
