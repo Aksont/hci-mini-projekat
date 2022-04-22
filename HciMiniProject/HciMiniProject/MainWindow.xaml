@@ -131,7 +131,7 @@
         <!-- line graph -->
         <lvc:CartesianChart  Name="MyChart" 
                                 Grid.Column="1" Grid.Row="1" 
-                            Margin="15 15 15 15"
+                            Margin="15 15 15 15" 
                 Series="{Binding SeriesCollection}">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="Dates" Labels="{Binding LineLabels}"></lvc:Axis>
@@ -142,9 +142,9 @@
         </lvc:CartesianChart>
 
         <!-- TODO other graph -->
-        <lvc:CartesianChart  Name="MyChart2" 
+        <lvc:CartesianChart Name="MyChart2" 
                                 Grid.Column="2" Grid.Row="1" 
-                            Margin="15 15 15 15"
+                            Margin="15 15 15 15" 
                 Series="{Binding SeriesCollectionBar}">
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis LabelsRotation="20" Title="Dates" Labels="{Binding BarLabels}">

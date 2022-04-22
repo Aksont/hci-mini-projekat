@@ -1,28 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using HciMiniProject.API;
+﻿using HciMiniProject.API;
 using LiveCharts;
 using LiveCharts.Configurations;
 using LiveCharts.Wpf;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using System.Windows.Media;
 
 namespace HciMiniProject
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
 
@@ -32,10 +19,11 @@ namespace HciMiniProject
             SeriesCollection = new SeriesCollection();
             SeriesCollectionBar = new SeriesCollection();
 
-            // zakucano
             string name = "TREASURY_YIELD";
             List<DataDateValue> data = getData(name, "monthly", "", "10year");
 
+
+            //line plot visualise
             ChartValues<double> values = new ChartValues<double>();
             List<string> labels = new List<string>();
             foreach (DataDateValue dataDateValue in data)
@@ -47,6 +35,8 @@ namespace HciMiniProject
             PlotLineGraph(name, values, labels);
 
 
+
+            //bar plot visualise
             List<DataDateValue> dataBarPlot = scaleDataBarPlot(data);
 
             ChartValues<double> valuesBar = new ChartValues<double>();
@@ -58,7 +48,7 @@ namespace HciMiniProject
                 labelsBar.Add(elem.date);
             }
 
-            PlotColumnGraph(name, valuesBar, labelsBar);
+            PlotBarGraph(name, valuesBar, labelsBar);
 
         }
 
@@ -104,31 +94,21 @@ namespace HciMiniProject
             double max = values.Max();
             double min = values.Min();
 
+
             var lineSeries1 = new LineSeries()
             {
                 Title = name,
                 Fill = Brushes.Transparent,
                 Values = values,
+                PointGeometrySize = 5,
                 Configuration = new CartesianMapper<double>()
                 .Stroke(value => (value == max) ? Brushes.Red : (value == min) ? Brushes.Red : Brushes.Yellow)
                 .Y(value => value)
-
             };
 
             SeriesCollection.Clear();
-
-
             SeriesCollection.Add(lineSeries1);
-
-            /*var dapperMapper = new CartesianMapper<double>()
-            .X((value, index) => index)
-            .Y((value) => value)
-            .Stroke((value, index) => ((value >= max) || (value <= min) ? Brushes.Red : Brushes.LightBlue));
-
-            LiveCharts.Charting.For<double>(dapperMapper, SeriesOrientation.Horizontal);*/
-
             Formatter = value => value.ToString("N");
-
             LineLabels = labels.ToArray();
             DataContext = this;
 
@@ -140,7 +120,7 @@ namespace HciMiniProject
             return parameters[2] + "." + parameters[1] + "." + parameters[0] + ".";
         }
 
-        private void PlotColumnGraph(string name, ChartValues<double> values, List<string> labels)
+        private void PlotBarGraph(string name, ChartValues<double> values, List<string> labels)
         {
             double max = values.Max();
             double min = values.Min();
@@ -149,8 +129,8 @@ namespace HciMiniProject
                 Title = name,
                 Values = values,
                 Configuration = new CartesianMapper<double>()
-                .Stroke(value => (value == max) ? Brushes.Red : (value == min) ? Brushes.Red : Brushes.Yellow)
-                .Fill(value => (value == max) ? Brushes.Red : (value == min) ? Brushes.Red : Brushes.Yellow)
+                .Stroke(value => (value == max) ? Brushes.Red : (value == min) ? Brushes.Red : Brushes.DeepSkyBlue)
+                .Fill(value => (value == max) ? Brushes.Red : (value == min) ? Brushes.Red : Brushes.DeepSkyBlue)
                 .Y(value => value)
             };
             SeriesCollectionBar.Clear();
@@ -164,9 +144,6 @@ namespace HciMiniProject
             DataContext = this;
 
         }
-
-        
-
 
         public SeriesCollection SeriesCollection { get; set; }
         public string[] LineLabels { get; set; }
@@ -190,18 +167,8 @@ namespace HciMiniProject
                 values.Add(dataDateValue.value);
                 labels.Add(dataDateValue.date);
             }
-          /*  List<DataDateValue> data = getData("RealGDP", "monthly", "", "10year");
-            ChartValues<double> values = new ChartValues<double>();
-            List<string> labels = new List<string>();
-            foreach (DataDateValue dataDateValue in data)
-            {
-                values.Add(dataDateValue.value);
-                labels.Add(dataDateValue.date);
-            }*/
-            PlotColumnGraph(name, values, labels);
+            PlotBarGraph(name, values, labels);
             PlotLineGraph(name, values, labels);
-            //PlotGraph("TREASURY_YIELD", "monthly", "", "10year");
-            // PlotLineGraph("RealGDP", "annual", "billions of dollars", "");
         }
     }
 }
