@@ -134,10 +134,10 @@
                             Margin="15 15 15 15"
                 Series="{Binding SeriesCollection}">
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="X" Labels="{Binding BarLabels}"></lvc:Axis>
+                <lvc:Axis Title="Dates" Labels="{Binding LineLabels}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Y" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                <lvc:Axis Title="{Binding YAxisName}" LabelFormatter="{Binding Formatter}"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
 
@@ -145,14 +145,19 @@
         <lvc:CartesianChart  Name="MyChart2" 
                                 Grid.Column="2" Grid.Row="1" 
                             Margin="15 15 15 15"
-                Series="{Binding SeriesCollection2}">
+                Series="{Binding SeriesCollectionBar}">
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="X" Labels="{Binding BarLabels}"></lvc:Axis>
+                <lvc:Axis LabelsRotation="20" Title="Dates" Labels="{Binding BarLabels}">
+                    <lvc:Axis.Separator >
+                        <lvc:Separator IsEnabled="False" Step="4"></lvc:Separator>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Y" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                <lvc:Axis Title="{Binding YAxisName}" LabelFormatter="{Binding FormatterBar}"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
-
+        
+        
     </Grid>
 </Window>
