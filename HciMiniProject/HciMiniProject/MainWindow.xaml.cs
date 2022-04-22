@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HciMiniProject.API;
 using LiveCharts;
+using LiveCharts.Configurations;
 using LiveCharts.Wpf;
 
 namespace HciMiniProject
@@ -25,10 +26,6 @@ namespace HciMiniProject
     public partial class MainWindow : Window
     {
 
-
-        public SeriesCollection SeriesCollection { get; set; }
-        public string[] BarLabels { get; set; }
-        public Func<double, string> Formatter { get; set; }
 
         public MainWindow()
         {
@@ -61,31 +58,92 @@ namespace HciMiniProject
                 values.Add(dataDateValue.value);
                 labels.Add(dataDateValue.date);
             }
+            double max = values.Max();
+            double min = values.Min();
+
+
+
+
             var lineSeries1 = new LineSeries
             {
                 Title = name,
-                Values = values,
-                DataLabels = true,
-                Stroke = Brushes.Yellow,
                 Fill = Brushes.Transparent,
-                ScalesYAt = 0
+                //Stroke = { (value, index) => (value > 3.0 ? Brushes.HotPink : Brushes.YellowGreen) },
+                /*Configuration = new CartesianMapper<Point>()
+                    .X(point => point.X)
+                    .Y(point => point.Y)
+                    .Stroke(point => point.X >= 10 ? Brushes.Red : Brushes.LightGreen),*/
+                Values = values,
+                Stroke = Brushes.Yellow,
+                /*DataLabels = {
+                    foreach (double value in values) {
+                        if (value == max || value == min) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                },*/
+                  //  Stroke = 
+                    /*Stroke = from value in values if(value==max)Brushes.Yellow,
+                    Stroke = from value in values where value == max select Brushes.Red : Brushes.Yellow,
+                    Stroke = (deals.Count() == 0 ? "Prospect" : "Client")*/
+                //Fill = Brushes.Transparent,
+               // ScalesYAt = 0
             };
+            //lineSeries1.DataLabels = (value, index) => ((value >= max) || (value <= min) ? true : false);
 
-            BarLabels = labels.ToArray();
-            //SeriesCollection.Clear();
+
+
+           // MyChart.line
+
             SeriesCollection.Clear();
+            /*var lineSeries1 = new LineSeries
+            {
+                Title = "Mixed Color Series",
+                Configuration = new CartesianMapper<Point>()
+                  .X(point => point.X)
+                  .Y(point => point.Y)
+                  .Stroke(point => point.X > 50 ? Brushes.Red : Brushes.Yellow)
+                  .Fill(point => point.X > 50 ? Brushes.Red : Brushes.Yellow),
+                Values = values
+            };*/
+
+
             SeriesCollection.Add(lineSeries1);
+
+            var dapperMapper = new CartesianMapper<double>()
+            //the data point will be displayed at the position of its index on the X axis
+            .X((value, index) => index)
+            //the data point will have a Y value of its value (your double) aka the column height
+            .Y((value) => value)
+            //pass any Func to determine the fill color according to value and index
+            //in this case, all columns over 3 height will be pink
+            //in your case, you want this to depend on the index
+            .Stroke((value, index) => ((value >= max) || (value <= min) ? Brushes.Red : Brushes.Yellow));
+
+
+            LiveCharts.Charting.For<double>(dapperMapper, SeriesOrientation.Horizontal);
 
             Formatter = value => value.ToString("N");
 
-            MyChart.AxisX.Clear();
-            MyChart.AxisY.Clear();
-            MyChart.AxisX.Add(new Axis());
-            MyChart.AxisY.Add(new Axis());
-            MyChart.Update();
+            //MyChart.AxisX.Clear();
+            //MyChart.AxisY.Clear();
+            //MyChart.AxisX.Add(new Axis());
+            //MyChart.AxisY.Add(new Axis());
+
+            BarLabels = labels.ToArray();
+
+           // MyChart.Update();
 
             DataContext = this;
         }
+
+
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] BarLabels { get; set; }
+        public Func<double, string> Formatter { get; set; }
+
 
 
         private void Button_Click(object sender, RoutedEventArgs e)
