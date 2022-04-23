@@ -23,7 +23,7 @@ namespace HciMiniProject.API
             TreasureIntervals = new List<string>();
             TreasureMaturity = new List<string>();
 
-            GDPIntervals.Add("Quaterly");
+            GDPIntervals.Add("Quarterly");
             GDPIntervals.Add("Annual");         // default
 
             TreasureIntervals.Add("Daily");
@@ -36,6 +36,13 @@ namespace HciMiniProject.API
             TreasureMaturity.Add("7 years");
             TreasureMaturity.Add("10 years");  // default
             TreasureMaturity.Add("30 years");
+        }
+
+        public static string CastMaturityForApi(string maturity)
+        {
+            maturity = maturity.Replace(" ", "");   // remove space
+            return maturity.Remove(maturity.Length - 1, 1).ToLower(); // remove s
+
         }
     }
 }

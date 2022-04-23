@@ -28,6 +28,10 @@ namespace HciMiniProject
         public double min;
 
 
+        public string chosenRadioButtonOption = "RealGDP";    // GDP or Treasure
+        public string chosenInterval = "annual";    // annual/quaterly OR daily/weekly/monthly
+        public string chosenMaturity = "10year";
+
         public MainWindow()
         {
             InitializeComponent();
@@ -37,40 +41,10 @@ namespace HciMiniProject
             SeriesCollection = new SeriesCollection();
             SeriesCollectionBar = new SeriesCollection();
 
-            string name = "TREASURY_YIELD";
-            data = getData(name, "monthly", "", "10year");
+            data = getData(chosenRadioButtonOption, chosenInterval, "", chosenMaturity);
 
-
-            //line plot visualise
-            ChartValues<double> values = new ChartValues<double>();
-            List<string> labels = new List<string>();
-            foreach (DataDateValue dataDateValue in data)
-            {
-                values.Add(dataDateValue.value);
-                labels.Add(parseDate(dataDateValue.date));
-            }
-
-            min = values.Min();
-            max = values.Max();
-
-            PlotLineGraph(name, values, labels);
-
-
-
-            //bar plot visualise
-            List<DataDateValue> dataBarPlot = scaleDataBarPlot(data);
-
-            ChartValues<double> valuesBar = new ChartValues<double>();
-            List<string> labelsBar = new List<string>();
-
-            foreach (DataDateValue elem in dataBarPlot)
-            {
-                valuesBar.Add(elem.value);
-                labelsBar.Add(elem.date);
-            }
-
-            PlotBarGraph(name, valuesBar, labelsBar);
-
+            MakeLineGraph();
+            MakeBarGraph();
         }
 
 
@@ -91,7 +65,7 @@ namespace HciMiniProject
                 {
                     sum += data[j].value;
                 }
-                values.Add(new DataDateValue(parseDate(data[startOfRange].date) + "-" + parseDate(data[endOfRange].date), sum / (endOfRange - startOfRange + 1)));
+                values.Add(new DataDateValue(data[startOfRange].date + "-" + data[endOfRange].date, sum / (endOfRange - startOfRange + 1)));
             }
             return values;
         }
@@ -109,6 +83,36 @@ namespace HciMiniProject
                 YAxisName = "Tresury yield value";
                 return API.API.GetTreasuryYieldData(interval, maturity);
             }
+        }
+
+        private void MakeLineGraph()
+        {
+            ChartValues<double> values = new ChartValues<double>();
+            List<string> labels = new List<string>();
+            foreach (DataDateValue dataDateValue in data)
+            {
+                values.Add(dataDateValue.value);
+                labels.Add(dataDateValue.date);
+            }
+            min = values.Min();
+            max = values.Max();
+
+            PlotLineGraph(chosenRadioButtonOption, values, labels);
+        }
+
+        private void MakeBarGraph()
+        {
+            List<DataDateValue> dataBarPlot = scaleDataBarPlot(data);
+
+            ChartValues<double> valuesBar = new ChartValues<double>();
+            List<string> labelsBar = new List<string>();
+
+            foreach (DataDateValue elem in dataBarPlot)
+            {
+                valuesBar.Add(elem.value);
+                labelsBar.Add(elem.date);
+            }
+            PlotBarGraph(chosenRadioButtonOption, valuesBar, labelsBar);
         }
 
         private void PlotLineGraph(string name, ChartValues<double> values, List<string> labels)
@@ -132,11 +136,6 @@ namespace HciMiniProject
 
         }
 
-        private string parseDate(string date)
-        {
-            string[] parameters = date.Split('-');
-            return parameters[2] + "." + parameters[1] + "." + parameters[0] + ".";
-        }
 
         private void PlotBarGraph(string name, ChartValues<double> values, List<string> labels)
         {
@@ -162,27 +161,42 @@ namespace HciMiniProject
             DataContext = this;
 
         }
+        private void GetIntervalsValue()
+        {
+            int intervalIndex = intervalCombobox.SelectedIndex;
+            var selectedItem = intervalCombobox.Items[intervalIndex];
+            chosenInterval = selectedItem.ToString().ToLower();
+        }
 
+        public void GetMaturityValue()
+        {
+            int maturityIndex = maturityCombobox.SelectedIndex;
+            var selectedItem = maturityCombobox.Items[maturityIndex];
+            chosenMaturity = Utils.CastMaturityForApi(selectedItem.ToString());
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string name = "TREASURY_YIELD";
-            List<DataDateValue> data = getData(name, "monthly", "", "10year");
+            GetIntervalsValue();
+            GetMaturityValue();
 
-            ChartValues<double> values = new ChartValues<double>();
-            List<string> labels = new List<string>();
-            foreach (DataDateValue dataDateValue in data)
-            {
-                values.Add(dataDateValue.value);
-                labels.Add(dataDateValue.date);
-            }
-            PlotBarGraph(name, values, labels);
-            PlotLineGraph(name, values, labels);
+            data = getData(chosenRadioButtonOption, chosenInterval, "", chosenMaturity);
+
+            MakeLineGraph();
+            MakeBarGraph();
         }
 
         private void Table_View_Click(object sender, RoutedEventArgs e)
         {
-            TableWindow tableWindow = new TableWindow(ref data, ref min, ref max);
+            TableWindow tableWindow = new TableWindow(ref data);
+            
+            tableWindow.MinValue = min;
+            tableWindow.MaxValue = max;
+            // this.Data = data;
+            tableWindow.DataOption = chosenRadioButtonOption;
+            tableWindow.Interval = chosenInterval;
+            tableWindow.Maturity = chosenMaturity;
+
             tableWindow.Show();
         }
 
@@ -193,6 +207,8 @@ namespace HciMiniProject
 
             if (radioButton == Treasure)
             {
+                chosenRadioButtonOption = "TREASURY_YIELD";
+
                 intervalCombobox.ItemsSource = Utils.TreasureIntervals;
                 intervalCombobox.SelectedIndex = Utils.TreasureIntervalsDefaulIndex;  // default = monthly
 
@@ -201,6 +217,8 @@ namespace HciMiniProject
             }
             else if (radioButton == GDP)
             {
+                chosenRadioButtonOption = "RealGDP";
+
                 intervalCombobox.ItemsSource = Utils.GDPIntervals;
                 intervalCombobox.SelectedIndex = Utils.GDPIntervalDefaulIndex; // default = annual
 

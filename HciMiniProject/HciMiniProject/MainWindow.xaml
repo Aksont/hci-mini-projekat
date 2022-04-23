@@ -8,7 +8,7 @@
         d:DesignHeight="300" d:DataContext="{d:DesignInstance local:MainWindow}"
         mc:Ignorable="d"
         Title="GDPer" 
-        Height="600" Width="1000" MinHeight="300" MinWidth="500" 
+        Height="600" Width="1100" MinHeight="300" MinWidth="500" 
         ResizeMode="CanResize"> 
     <Grid>
         <Grid.ColumnDefinitions>
