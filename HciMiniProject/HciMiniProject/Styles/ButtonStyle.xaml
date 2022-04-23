@@ -24,6 +24,10 @@
                 <Setter Property="Background" Value="#ededed"/>
                 <Setter Property="Cursor" Value="Hand"/>
             </Trigger>
+
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="DarkGray"/>
+            </Trigger>
         </Style.Triggers>
     </Style>
 

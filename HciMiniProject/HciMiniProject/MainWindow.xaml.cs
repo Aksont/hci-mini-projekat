@@ -27,6 +27,7 @@ namespace HciMiniProject
         public double max;
         public double min;
 
+        private TableWindow tableWindow;
 
         public string chosenRadioButtonOption = "RealGDP";    // GDP or Treasure
         public string chosenInterval = "annual";    // annual/quaterly OR daily/weekly/monthly
@@ -161,41 +162,79 @@ namespace HciMiniProject
             DataContext = this;
 
         }
-        private void GetIntervalsValue()
+        private string GetIntervalValue()
         {
+            if (intervalCombobox.SelectedIndex == -1)
+            {
+                return null;
+            }
             int intervalIndex = intervalCombobox.SelectedIndex;
             var selectedItem = intervalCombobox.Items[intervalIndex];
-            chosenInterval = selectedItem.ToString().ToLower();
+            return selectedItem.ToString().ToLower();
         }
 
-        public void GetMaturityValue()
+        private string GetMaturityValue()
         {
             int maturityIndex = maturityCombobox.SelectedIndex;
             var selectedItem = maturityCombobox.Items[maturityIndex];
-            chosenMaturity = Utils.CastMaturityForApi(selectedItem.ToString());
+            return Utils.CastMaturityForApi(selectedItem.ToString());
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            GetIntervalsValue();
-            GetMaturityValue();
+            createChartBtn.IsEnabled = false;
+
+            chosenInterval = GetIntervalValue();
+            chosenMaturity = GetMaturityValue();
 
             data = getData(chosenRadioButtonOption, chosenInterval, chosenMaturity);
 
             MakeLineGraph();
             MakeBarGraph();
+
+            
+
         }
+
+        public void IntervalChanged(object sender, RoutedEventArgs e)
+        {
+            string newChosenInterval = GetIntervalValue();
+            if (!chosenInterval.Equals(newChosenInterval))
+            {
+                createChartBtn.IsEnabled = true;
+            }
+            else
+            {
+                createChartBtn.IsEnabled = false;
+            }
+        }
+        public void MaturityChanged(object sender, RoutedEventArgs e)
+        {
+            string newChosenMaturity = GetMaturityValue();
+            if (!chosenMaturity.Equals(newChosenMaturity))
+            {
+                createChartBtn.IsEnabled = true;
+            }
+            else
+            {
+                createChartBtn.IsEnabled = false;
+            }
+
+            
+        }
+        
 
         private void Table_View_Click(object sender, RoutedEventArgs e)
         {
-            TableWindow tableWindow = new TableWindow(ref data, ref min, ref max);
-            
-            // this.Data = data;
-            tableWindow.DataOption = chosenRadioButtonOption;
-            tableWindow.Interval = chosenInterval;
-            tableWindow.Maturity = chosenMaturity;
-
-            tableWindow.Show();
+            if (!IsSameQuery())
+            {
+                tableWindow = new TableWindow(ref data, ref min, ref max, chosenRadioButtonOption, chosenInterval, chosenMaturity);
+                tableWindow.Show();
+            }
+            else
+            {
+                tableWindow.Focus();
+            }
         }
 
 
@@ -233,6 +272,20 @@ namespace HciMiniProject
 
             maturityCombobox.ItemsSource = Utils.TreasureMaturity;
             maturityCombobox.SelectedIndex = Utils.TreasureMaturityDefaulIndex;
+        }
+
+        private bool IsSameQuery()
+        {   if(tableWindow == null)
+            {
+                return false;
+            }
+            if (tableWindow.IsClosed)
+            {
+                return false;
+            }
+            return tableWindow.DataOption.Equals(chosenRadioButtonOption) &&
+                   tableWindow.IntervalOption.Equals(chosenInterval) &&
+                   tableWindow.MaturityOption.Equals(chosenMaturity);
         }
     }
 }
