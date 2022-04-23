@@ -41,7 +41,7 @@ namespace HciMiniProject
             SeriesCollection = new SeriesCollection();
             SeriesCollectionBar = new SeriesCollection();
 
-            data = getData(chosenRadioButtonOption, chosenInterval, "", chosenMaturity);
+            data = getData(chosenRadioButtonOption, chosenInterval, chosenMaturity);
 
             MakeLineGraph();
             MakeBarGraph();
@@ -71,12 +71,12 @@ namespace HciMiniProject
         }
 
 
-        private List<DataDateValue> getData(string name, string interval, string unit, string maturity)
+        private List<DataDateValue> getData(string name, string interval, string maturity)
         {
             if (name == "RealGDP")
             {
                 YAxisName = "Real GDP value";
-                return API.API.GetRealGDPData(interval, unit);
+                return API.API.GetRealGDPData(interval);
             }
             else
             {
@@ -180,7 +180,7 @@ namespace HciMiniProject
             GetIntervalsValue();
             GetMaturityValue();
 
-            data = getData(chosenRadioButtonOption, chosenInterval, "", chosenMaturity);
+            data = getData(chosenRadioButtonOption, chosenInterval, chosenMaturity);
 
             MakeLineGraph();
             MakeBarGraph();
@@ -188,10 +188,8 @@ namespace HciMiniProject
 
         private void Table_View_Click(object sender, RoutedEventArgs e)
         {
-            TableWindow tableWindow = new TableWindow(ref data);
+            TableWindow tableWindow = new TableWindow(ref data, ref min, ref max);
             
-            tableWindow.MinValue = min;
-            tableWindow.MaxValue = max;
             // this.Data = data;
             tableWindow.DataOption = chosenRadioButtonOption;
             tableWindow.Interval = chosenInterval;

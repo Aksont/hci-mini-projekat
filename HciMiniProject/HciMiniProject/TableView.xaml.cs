@@ -22,9 +22,12 @@ namespace HciMiniProject
         public string Maturity { get; set; }
 
         // private readonly List<DataDateValue> Data;
-        public TableWindow(ref List<DataDateValue> data)
+        public TableWindow(ref List<DataDateValue> data, ref double minValue, ref double maxValue)
         {
             InitializeComponent();
+            this.MinValue = minValue;
+            this.MaxValue = maxValue;
+
             TableDataGrid.ItemsSource = data;
             SetMinMaxStyle();
         }

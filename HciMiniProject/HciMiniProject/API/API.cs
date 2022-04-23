@@ -37,18 +37,13 @@ namespace HciMiniProject.API
 
 
         // mozda moze bez unit
-        public static List<DataDateValue> GetRealGDPData(string interval, string unit)
+        public static List<DataDateValue> GetRealGDPData(string interval)
         {
             if (interval != "")
             {
                 interval = "&interval=" + interval;
             }
             else { interval = ""; }
-            if (unit != "")
-            {
-                unit = "&unit=" + unit;
-            }
-            else { unit = ""; }
             string QUERY_URL = "https://www.alphavantage.co/query?function=REAL_GDP" + interval + API_KEY;
             Uri queryUri = new Uri(QUERY_URL);
 
