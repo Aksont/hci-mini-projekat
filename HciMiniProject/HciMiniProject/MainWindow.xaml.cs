@@ -4,6 +4,7 @@ using LiveCharts.Configurations;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,17 +13,49 @@ using System.Windows.Media;
 namespace HciMiniProject
 {
 
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public SeriesCollection SeriesCollection { get; set; }
-        public string[] LineLabels { get; set; }
+        public List<string> LineLabels { get; set; }
         public Func<double, string> Formatter { get; set; }
 
         public SeriesCollection SeriesCollectionBar { get; set; }
-        public string[] BarLabels { get; set; }
+        public List<string> BarLabels { get; set; }
         public Func<double, string> FormatterBar { get; set; }
         public RotateTransform RotateTransform { get; set; }
-        public string YAxisName { get; set; }
+        private string _YAxisName;
+        public string YAxisName
+        {
+            get
+            {
+                return _YAxisName;
+            }
+            set
+            {
+                if (_YAxisName != value)
+                {
+                    _YAxisName = value;
+                    OnPropertyChanged("YAxisName");
+                }
+            }
+        }
+
+        private string _XLabelsSplit;
+        public string XLabelsSplit
+        {
+            get
+            {
+                return _XLabelsSplit;
+            }
+            set
+            {
+                if (_XLabelsSplit != value)
+                {
+                    _XLabelsSplit = value;
+                    OnPropertyChanged("XLabelsSplit");
+                }
+            }
+        }
         public List<DataDateValue> data;
         public double max;
         public double min;
@@ -31,6 +64,14 @@ namespace HciMiniProject
         public string chosenRadioButtonOption = "RealGDP";    // GDP or Treasure
         public string chosenInterval = "annual";    // annual/quaterly OR daily/weekly/monthly
         public string chosenMaturity = "10year";
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public MainWindow()
         {
@@ -45,6 +86,7 @@ namespace HciMiniProject
 
             MakeLineGraph();
             MakeBarGraph();
+            DataContext = this;
         }
 
 
@@ -75,12 +117,12 @@ namespace HciMiniProject
         {
             if (name == "RealGDP")
             {
-                YAxisName = "Real GDP value";
+                YAxisName = "billions of dollars";
                 return API.API.GetRealGDPData(interval);
             }
             else
             {
-                YAxisName = "Tresury yield value";
+                YAxisName = "percent";
                 return API.API.GetTreasuryYieldData(interval, maturity);
             }
         }
@@ -131,9 +173,17 @@ namespace HciMiniProject
             SeriesCollection.Clear();
             SeriesCollection.Add(lineSeries1);
             Formatter = value => value.ToString("N");
-            LineLabels = labels.ToArray();
-            DataContext = this;
 
+            if (LineLabels!=null)
+            {
+                LineLabels.Clear();
+                LineLabels.AddRange(labels);
+            }
+            else
+            {
+                LineLabels = labels;
+            }
+            XLabelsSplit = (labels.Count / 9).ToString();
         }
 
 
@@ -154,11 +204,15 @@ namespace HciMiniProject
             SeriesCollectionBar.Add(columnSeries);
             SeriesCollectionBar.Add(columnSeries);
             FormatterBar = value => value.ToString("N");
-
-            BarLabels = labels.ToArray();
-            RotateTransform = new RotateTransform(13);
-
-            DataContext = this;
+            if (BarLabels != null)
+            {
+                BarLabels.Clear();
+                BarLabels.AddRange(labels);
+            }
+            else
+            {
+                BarLabels = labels;
+            }
 
         }
         private void GetIntervalsValue()
@@ -190,7 +244,6 @@ namespace HciMiniProject
         {
             TableWindow tableWindow = new TableWindow(ref data, ref min, ref max);
             
-            // this.Data = data;
             tableWindow.DataOption = chosenRadioButtonOption;
             tableWindow.Interval = chosenInterval;
             tableWindow.Maturity = chosenMaturity;
