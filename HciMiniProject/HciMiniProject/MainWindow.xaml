@@ -8,7 +8,7 @@
         d:DesignHeight="300" d:DataContext="{d:DesignInstance local:MainWindow}"
         mc:Ignorable="d"
         Title="GDPer" 
-        Height="600" Width="1000" MinHeight="300" MinWidth="500" 
+        Height="600" Width="1100" MinHeight="300" MinWidth="500" 
         ResizeMode="CanResize"> 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -60,16 +60,26 @@
         <Rectangle Fill="#FFFF00" Margin="40,45,40,45" RadiusX="15" RadiusY="15"/>
         <TextBlock Text="GDPer" Margin="50,52,40,45" FontSize="35"/>
 
+        <Label Content="Interval:" Grid.Column="1" Grid.Row="0" Margin="20 25 10 50" HorizontalAlignment="Left"  Foreground="#000000" FontSize="25"/>
+        <ComboBox Grid.Column="1" Margin="140 32 50 88"  Grid.Row="0" x:Name="intervalCombobox"  IsEditable="False" FontSize="18"/>
+        <Label x:Name="maturityLabel" Content="Maturity:" Grid.Column="1" Grid.Row="0" Margin="20 75 10 25" HorizontalAlignment="Left"  Foreground="#000000" FontSize="25"/>
+        <ComboBox Grid.Column="1"  Margin="140 85 50 35" x:Name="maturityCombobox" Grid.Row="0" IsEditable="False" FontSize="18"/>
+
+        
         <!--menu items-->
         <StackPanel Grid.Row="1">
-            <RadioButton Content="GDP" Height="50" FontSize="35" 
+            <RadioButton x:Name="GDP" Content="GDP" Height="50" FontSize="35" 
                             GroupName="menubar"
-                            Style="{StaticResource MenuStyle}"/>
-            <RadioButton Content="Treasure" Height="50" FontSize="35" 
+                            Style="{StaticResource MenuStyle}"
+                            Checked="RadioButton_Checked"
+                            IsChecked="True"/>
+            <RadioButton x:Name="Treasure" Content="Treasure" Height="50" FontSize="35" 
                             GroupName="menubar"
-                            Style="{StaticResource MenuStyle}"/>
+                            Style="{StaticResource MenuStyle}"
+                            Checked="RadioButton_Checked"/>
         </StackPanel>
 
+        
         <!--shadow for table button-->
         <Border Grid.Column="2" Grid.Row="0" 
                 HorizontalAlignment="Right" VerticalAlignment="Top"
@@ -135,7 +145,11 @@
                             Margin="15 15 15 15" 
                 Series="{Binding SeriesCollection}">
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Dates" Labels="{Binding LineLabels}"></lvc:Axis>
+                <lvc:Axis LabelsRotation="20" Title="Dates" Labels="{Binding LineLabels}">
+                    <lvc:Axis.Separator >
+                        <lvc:Separator IsEnabled="False" Step="10"></lvc:Separator>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="{Binding YAxisName}" LabelFormatter="{Binding Formatter}"></lvc:Axis>
