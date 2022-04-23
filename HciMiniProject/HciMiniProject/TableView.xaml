@@ -8,6 +8,7 @@
         d:DesignHeight="300" d:DataContext="{d:DesignInstance local:MainWindow}"
         mc:Ignorable="d"
         Title="GDPer" 
+        Name="TableView"
         Height="600" Width="1000" MinHeight="300" MinWidth="500" 
         ResizeMode="CanResize">
 
@@ -16,7 +17,7 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="0.3*" />
             <RowDefinition Height="8.5*" />
-            <RowDefinition Height="0.3*" />
+            <RowDefinition Height="0.75*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.3*" />
@@ -40,39 +41,44 @@
 
         <TextBlock Text="TABLE OF GDP" Grid.Row="0" Grid.RowSpan="2"  Grid.Column="1"  Margin="20,10,20,10" FontSize="20"></TextBlock>
 
-        <DataGrid x:Name="DataTable" CanUserSortColumns="True" 
+        <DataGrid x:Name="TableDataGrid"
+                  CanUserSortColumns="True" 
                   AutoGenerateColumns="False"
-                  ItemsSource="{Binding tableRowsData}"
                   Grid.Row="2"
-                  Grid.ColumnSpan="5"
-                  FontSize="14" Margin="18,0,0,23.6" Grid.RowSpan="2">
+                  Grid.ColumnSpan="4"
+                  Grid.Column="1"
+                  FontSize="14" 
+                  IsReadOnly="True" 
+                  Margin="0,0.4,0,16.4"
+                  HorizontalAlignment="Right"
+                  AlternatingRowBackground="#ededed">
+
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderBrush" Value="black"/>
+                    <Setter Property="BorderThickness" Value="0.6"/>
+                    <Setter Property="TextBlock.TextAlignment" Value="Center" />
+
+                </Style>
+            </DataGrid.CellStyle>
+
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="Background" Value="Yellow"></Setter>
                     <Setter Property="FontWeight" Value="Bold"></Setter>
                     <Setter Property="BorderBrush" Value="Black"></Setter>
-                    <Setter Property="BorderThickness" Value="0, 0, 1, 2"></Setter>
+                    <Setter Property="BorderThickness" Value="1"></Setter>
                     <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
                     <Setter Property="FontSize" Value="25"></Setter>
                 </Style>
             </DataGrid.Resources>
 
+            
+
+
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Date" Width="*" Binding="{Binding date}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Value" Width="*" Binding="{Binding value}">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="{x:Type TextBlock}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding barChart.minValue}">
-                                    <Setter Property="Background" Value="Yellow"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding barChart.maxValue}">
-                                    <Setter Property="Background" Value="Red"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
+                <DataGridTextColumn Header="Date" Width="*" Binding="{Binding date}" IsReadOnly="true"></DataGridTextColumn>
+                <DataGridTextColumn Header="Value" Width="*" Binding="{Binding value}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 

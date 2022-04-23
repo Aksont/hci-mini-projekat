@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace HciMiniProject.API
 {
-    class DataDateValue
+    public class DataDateValue
     {
         public string date
         {
             get;
             set;
         }
+
         public double value
         {
             get;

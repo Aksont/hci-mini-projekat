@@ -12,7 +12,6 @@ namespace HciMiniProject
 {
     public partial class MainWindow : Window
     {
-
         public MainWindow()
         {
             InitializeComponent();
@@ -20,7 +19,7 @@ namespace HciMiniProject
             SeriesCollectionBar = new SeriesCollection();
 
             string name = "TREASURY_YIELD";
-            List<DataDateValue> data = getData(name, "monthly", "", "10year");
+            data = getData(name, "monthly", "", "10year");
 
 
             //line plot visualise
@@ -31,6 +30,9 @@ namespace HciMiniProject
                 values.Add(dataDateValue.value);
                 labels.Add(parseDate(dataDateValue.date));
             }
+
+            min = values.Min();
+            max = values.Max();
 
             PlotLineGraph(name, values, labels);
 
@@ -92,10 +94,6 @@ namespace HciMiniProject
 
         private void PlotLineGraph(string name, ChartValues<double> values, List<string> labels)
         {
-            double max = values.Max();
-            double min = values.Min();
-
-
             var lineSeries1 = new LineSeries()
             {
                 Title = name,
@@ -123,8 +121,8 @@ namespace HciMiniProject
 
         private void PlotBarGraph(string name, ChartValues<double> values, List<string> labels)
         {
-            double max = values.Max();
             double min = values.Min();
+            double max = values.Max();
             var columnSeries = new ColumnSeries()
             {
                 Title = name,
@@ -155,6 +153,9 @@ namespace HciMiniProject
         public Func<double, string> FormatterBar { get; set; }
         public RotateTransform RotateTransform { get; set; }
         public string YAxisName { get; set; }
+        public List<DataDateValue> data;
+        public double max;
+        public double min;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -174,7 +175,8 @@ namespace HciMiniProject
 
         private void Table_View_Click(object sender, RoutedEventArgs e)
         {
-            TableWindow tableWindow = new TableWindow();
+            //List<DataDateValue> data = getData("TREASURY_YIELD", "monthly", "", "10year");
+            TableWindow tableWindow = new TableWindow(ref data, ref min, ref max);
             tableWindow.Show();
         }
 
