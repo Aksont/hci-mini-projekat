@@ -6,15 +6,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace HciMiniProject
 {
+
     public partial class MainWindow : Window
     {
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] LineLabels { get; set; }
+        public Func<double, string> Formatter { get; set; }
+
+        public SeriesCollection SeriesCollectionBar { get; set; }
+        public string[] BarLabels { get; set; }
+        public Func<double, string> FormatterBar { get; set; }
+        public RotateTransform RotateTransform { get; set; }
+        public string YAxisName { get; set; }
+        public List<DataDateValue> data;
+        public double max;
+        public double min;
+
+
         public MainWindow()
         {
             InitializeComponent();
+
+            FillComboboxes();
+
             SeriesCollection = new SeriesCollection();
             SeriesCollectionBar = new SeriesCollection();
 
@@ -144,18 +163,6 @@ namespace HciMiniProject
 
         }
 
-        public SeriesCollection SeriesCollection { get; set; }
-        public string[] LineLabels { get; set; }
-        public Func<double, string> Formatter { get; set; }
-
-        public SeriesCollection SeriesCollectionBar { get; set; }
-        public string[] BarLabels { get; set; }
-        public Func<double, string> FormatterBar { get; set; }
-        public RotateTransform RotateTransform { get; set; }
-        public string YAxisName { get; set; }
-        public List<DataDateValue> data;
-        public double max;
-        public double min;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -175,10 +182,42 @@ namespace HciMiniProject
 
         private void Table_View_Click(object sender, RoutedEventArgs e)
         {
-            //List<DataDateValue> data = getData("TREASURY_YIELD", "monthly", "", "10year");
             TableWindow tableWindow = new TableWindow(ref data, ref min, ref max);
             tableWindow.Show();
         }
 
+
+        public void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton radioButton = (RadioButton)sender;
+
+            if (radioButton == Treasure)
+            {
+                intervalCombobox.ItemsSource = Utils.TreasureIntervals;
+                intervalCombobox.SelectedIndex = Utils.TreasureIntervalsDefaulIndex;  // default = monthly
+
+                maturityCombobox.Visibility = Visibility.Visible;
+                maturityLabel.Visibility = Visibility.Visible;
+            }
+            else if (radioButton == GDP)
+            {
+                intervalCombobox.ItemsSource = Utils.GDPIntervals;
+                intervalCombobox.SelectedIndex = Utils.GDPIntervalDefaulIndex; // default = annual
+
+                maturityCombobox.Visibility = Visibility.Hidden;
+                maturityLabel.Visibility = Visibility.Hidden;
+            }
+
+        }
+
+        private void FillComboboxes()
+        {
+            intervalCombobox.ItemsSource = Utils.GDPIntervals;
+            intervalCombobox.SelectedIndex = Utils.GDPIntervalDefaulIndex;
+
+            maturityCombobox.ItemsSource = Utils.TreasureMaturity;
+            maturityCombobox.SelectedIndex = Utils.TreasureMaturityDefaulIndex;
+        }
     }
 }
+

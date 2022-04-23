@@ -16,27 +16,28 @@ namespace HciMiniProject
     {
         public double MinValue { get; set; }
         public double MaxValue { get; set; }
-        //        public ObservableCollection<DataDateValue> Data { get; set; }
 
-        private List<DataDateValue> data;
+        private readonly List<DataDateValue> Data;
         public TableWindow(ref List<DataDateValue> data, ref double minValue, ref double maxValue)
         {
             InitializeComponent();
 
             MinValue = minValue;
             MaxValue = maxValue;
-            this.data = data;
+            this.Data = data;
 
             UpdateData();
             SetMinMaxStyle();
         }
         public void UpdateData()
         {
-            TableDataGrid.Items.Clear();
-            foreach (DataDateValue item in data)
+            TableDataGrid.ItemsSource = Data;
+            //TableDataGrid.Items.Clear();
+            /*foreach (DataDateValue item in Data)
             {
-                TableDataGrid.Items.Add(item);
-            }
+                
+                //TableDataGrid.Items.Add(item);
+            }*/
         }
 
         private void SetMinMaxStyle()
