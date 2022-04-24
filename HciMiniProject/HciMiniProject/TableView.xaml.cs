@@ -17,17 +17,41 @@ namespace HciMiniProject
         public double MinValue { get; set; }
         public double MaxValue { get; set; }
 
-        public string DataOption { get; set; }
-        public string Interval { get; set; }
-        public string Maturity { get; set; }
+        public string DataOption { get; private set; }
+        public string IntervalOption { get; private set; }
+        public string MaturityOption { get; private set; }
+        public bool IsClosed { get; private set; }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            IsClosed = true;
+        }
 
         // private readonly List<DataDateValue> Data;
-        public TableWindow(ref List<DataDateValue> data, ref double minValue, ref double maxValue)
+        public TableWindow(ref List<DataDateValue> data, ref double minValue, ref double maxValue, string chosenDataOption, string intervalOption, string maturityOption)
         {
             InitializeComponent();
-            this.MinValue = minValue;
-            this.MaxValue = maxValue;
 
+            MinValue = minValue;
+            MaxValue = maxValue;
+
+            DataOption = chosenDataOption;
+            IntervalOption = intervalOption;
+            MaturityOption = maturityOption;
+
+            interval.Text = "Interval: " + intervalOption;
+            if (chosenDataOption.Equals("RealGDP"))
+            {
+                maturity.Text = "";
+                dataOption.Text = "Table of REAL GDP";
+            }
+            else
+            {
+                maturity.Text = "Maturity: " + maturityOption + "s";
+                dataOption.Text = "Table of TREASURY YIELD";
+            }
+            
             TableDataGrid.ItemsSource = data;
             SetMinMaxStyle();
         }
@@ -51,8 +75,8 @@ namespace HciMiniProject
                 Binding = new Binding("value")
             };
 
-            maxTrigger.Setters.Add(new Setter(BackgroundProperty, Brushes.LightSkyBlue));
-            minTrigger.Setters.Add(new Setter(BackgroundProperty, Brushes.PaleVioletRed));
+            maxTrigger.Setters.Add(new Setter(BackgroundProperty, Brushes.PaleVioletRed));
+            minTrigger.Setters.Add(new Setter(BackgroundProperty, Brushes.LightSkyBlue));
 
             rowStyle.Triggers.Add(minTrigger);
             rowStyle.Triggers.Add(maxTrigger);

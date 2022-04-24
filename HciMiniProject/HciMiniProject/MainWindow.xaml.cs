@@ -60,6 +60,7 @@ namespace HciMiniProject
         public double max;
         public double min;
 
+        private TableWindow tableWindow;
 
         public string chosenRadioButtonOption = "RealGDP";    // GDP or Treasure
         public string chosenInterval = "annual";    // annual/quaterly OR daily/weekly/monthly
@@ -107,7 +108,7 @@ namespace HciMiniProject
                 {
                     sum += data[j].value;
                 }
-                values.Add(new DataDateValue(data[startOfRange].date + "-" + data[endOfRange].date, sum / (endOfRange - startOfRange + 1)));
+                values.Add(new DataDateValue(data[startOfRange].date, data[endOfRange].date, sum / (endOfRange - startOfRange + 1)));
             }
             return values;
         }
@@ -215,24 +216,34 @@ namespace HciMiniProject
             }
 
         }
-        private void GetIntervalsValue()
+        private string GetIntervalValue()
         {
+            if (intervalCombobox.SelectedIndex == -1)
+            {
+                return null;
+            }
             int intervalIndex = intervalCombobox.SelectedIndex;
             var selectedItem = intervalCombobox.Items[intervalIndex];
-            chosenInterval = selectedItem.ToString().ToLower();
+            return selectedItem.ToString().ToLower();
         }
 
-        public void GetMaturityValue()
+        private string GetMaturityValue()
         {
+            if (maturityCombobox.SelectedIndex == -1)
+            {
+                return null;
+            }
             int maturityIndex = maturityCombobox.SelectedIndex;
             var selectedItem = maturityCombobox.Items[maturityIndex];
-            chosenMaturity = Utils.CastMaturityForApi(selectedItem.ToString());
+            return Utils.CastMaturityForApi(selectedItem.ToString());
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            GetIntervalsValue();
-            GetMaturityValue();
+            createChartBtn.IsEnabled = false;
+
+            chosenInterval = GetIntervalValue();
+            chosenMaturity = GetMaturityValue();
 
             data = getData(chosenRadioButtonOption, chosenInterval, chosenMaturity);
 
@@ -240,15 +251,28 @@ namespace HciMiniProject
             MakeBarGraph();
         }
 
+        public void IntervalChanged(object sender, RoutedEventArgs e)
+        {
+            string newChosenInterval = GetIntervalValue();
+            createChartBtn.IsEnabled = !chosenInterval.Equals(newChosenInterval);
+        }
+        public void MaturityChanged(object sender, RoutedEventArgs e)
+        {
+            string newChosenMaturity = GetMaturityValue();
+            createChartBtn.IsEnabled = !chosenMaturity.Equals(newChosenMaturity);
+        }
+
         private void Table_View_Click(object sender, RoutedEventArgs e)
         {
-            TableWindow tableWindow = new TableWindow(ref data, ref min, ref max);
-            
-            tableWindow.DataOption = chosenRadioButtonOption;
-            tableWindow.Interval = chosenInterval;
-            tableWindow.Maturity = chosenMaturity;
-
-            tableWindow.Show();
+            if (!IsSameQuery())
+            {
+                tableWindow = new TableWindow(ref data, ref min, ref max, chosenRadioButtonOption, chosenInterval, chosenMaturity);
+                tableWindow.Show();
+            }
+            else
+            {
+                tableWindow.Focus();
+            }
         }
 
 
@@ -286,6 +310,21 @@ namespace HciMiniProject
 
             maturityCombobox.ItemsSource = Utils.TreasureMaturity;
             maturityCombobox.SelectedIndex = Utils.TreasureMaturityDefaulIndex;
+        }
+
+        private bool IsSameQuery()
+        {   
+            if(tableWindow == null)
+            {
+                return false;
+            }
+            if (tableWindow.IsClosed)
+            {
+                return false;
+            }
+            return tableWindow.DataOption.Equals(chosenRadioButtonOption) &&
+                   tableWindow.IntervalOption.Equals(chosenInterval) &&
+                   tableWindow.MaturityOption.Equals(chosenMaturity);
         }
     }
 }
