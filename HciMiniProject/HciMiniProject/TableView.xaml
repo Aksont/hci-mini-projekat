@@ -59,7 +59,6 @@
                     <Setter Property="BorderBrush" Value="black"/>
                     <Setter Property="BorderThickness" Value="0.6"/>
                     <Setter Property="TextBlock.TextAlignment" Value="Center" />
-
                 </Style>
             </DataGrid.CellStyle>
 
@@ -78,7 +77,7 @@
 
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Date" Width="*" Binding="{Binding date}" IsReadOnly="true"></DataGridTextColumn>
+                <DataGridTextColumn Header="Date" Width="*" Binding="{Binding dateTime, StringFormat=\{0:dd.MM.yyyy.\}}" IsReadOnly="true"></DataGridTextColumn>
                 <DataGridTextColumn Header="Value" Width="*" Binding="{Binding value}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>

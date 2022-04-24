@@ -66,7 +66,7 @@ namespace HciMiniProject
                 {
                     sum += data[j].value;
                 }
-                values.Add(new DataDateValue(data[startOfRange].date + "-" + data[endOfRange].date, sum / (endOfRange - startOfRange + 1)));
+                values.Add(new DataDateValue(data[startOfRange].date, data[endOfRange].date, sum / (endOfRange - startOfRange + 1)));
             }
             return values;
         }
@@ -175,6 +175,10 @@ namespace HciMiniProject
 
         private string GetMaturityValue()
         {
+            if (maturityCombobox.SelectedIndex == -1)
+            {
+                return null;
+            }
             int maturityIndex = maturityCombobox.SelectedIndex;
             var selectedItem = maturityCombobox.Items[maturityIndex];
             return Utils.CastMaturityForApi(selectedItem.ToString());
@@ -191,36 +195,17 @@ namespace HciMiniProject
 
             MakeLineGraph();
             MakeBarGraph();
-
-            
-
         }
 
         public void IntervalChanged(object sender, RoutedEventArgs e)
         {
             string newChosenInterval = GetIntervalValue();
-            if (!chosenInterval.Equals(newChosenInterval))
-            {
-                createChartBtn.IsEnabled = true;
-            }
-            else
-            {
-                createChartBtn.IsEnabled = false;
-            }
+            createChartBtn.IsEnabled = !chosenInterval.Equals(newChosenInterval);
         }
         public void MaturityChanged(object sender, RoutedEventArgs e)
         {
             string newChosenMaturity = GetMaturityValue();
-            if (!chosenMaturity.Equals(newChosenMaturity))
-            {
-                createChartBtn.IsEnabled = true;
-            }
-            else
-            {
-                createChartBtn.IsEnabled = false;
-            }
-
-            
+            createChartBtn.IsEnabled = !chosenMaturity.Equals(newChosenMaturity);
         }
         
 
@@ -275,7 +260,8 @@ namespace HciMiniProject
         }
 
         private bool IsSameQuery()
-        {   if(tableWindow == null)
+        {   
+            if(tableWindow == null)
             {
                 return false;
             }
