@@ -152,7 +152,7 @@
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis LabelsRotation="20" Title="Dates" Labels="{Binding LineLabels}">
                     <lvc:Axis.Separator >
-                        <lvc:Separator IsEnabled="False" Step="10"></lvc:Separator>
+                        <lvc:Separator IsEnabled="false" Step="{Binding XLabelsSplit}" ></lvc:Separator>
                     </lvc:Axis.Separator>
                 </lvc:Axis>
             </lvc:CartesianChart.AxisX>
@@ -161,7 +161,7 @@
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
 
-        <!-- TODO other graph -->
+        <!-- bar graph -->
         <lvc:CartesianChart Name="MyChart2" 
                                 Grid.Column="2" Grid.Row="1" 
                             Margin="15 15 15 15" 
