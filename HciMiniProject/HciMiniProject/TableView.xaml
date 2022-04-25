@@ -10,7 +10,8 @@
         Title="GDPer" 
         Name="TableView"
         Height="600" Width="1000" MinHeight="300" MinWidth="500" 
-        ResizeMode="CanResize">
+        ResizeMode="CanResize"
+        WindowStartupLocation="CenterScreen">
 
     <Grid>
         <Grid.RowDefinitions>

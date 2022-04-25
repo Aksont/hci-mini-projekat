@@ -9,7 +9,8 @@
         mc:Ignorable="d"
         Title="GDPer" 
         Height="600" Width="1100" MinHeight="300" MinWidth="500" 
-        ResizeMode="CanResize"> 
+        ResizeMode="CanResize"
+        WindowStartupLocation="CenterScreen"> 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />

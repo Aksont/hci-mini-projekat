@@ -25,13 +25,25 @@ namespace HciMiniProject.API
                 // if using .NET Framework (System.Web.Script.Serialization)
 
                 JavaScriptSerializer js = new JavaScriptSerializer();
-                dynamic json_data = js.Deserialize(client.DownloadString(queryUri), typeof(object));
-                foreach (Dictionary<string, object> d in json_data["data"])
+
+                string data_string = "";
+                try
                 {
-                    AddData(d, ref data);
+                    data_string = client.DownloadString(queryUri);
+                }
+                catch { }
+
+                if (data_string != "")
+                {
+                    dynamic json_data = js.Deserialize(data_string, typeof(object));
+
+
+                    foreach (Dictionary<string, object> d in json_data["data"])
+                    {
+                        AddData(d, ref data);
+                    }
                 }
             }
-            Console.WriteLine("Uspesno dobavljeni podaci");
             return data;
         }
 
@@ -55,12 +67,24 @@ namespace HciMiniProject.API
                 // if using .NET Framework (System.Web.Script.Serialization)
 
                 JavaScriptSerializer js = new JavaScriptSerializer();
-                dynamic json_data = js.Deserialize(client.DownloadString(queryUri), typeof(object));
-                foreach (Dictionary<string, object> d in json_data["data"])
+
+                string data_string = "";
+                try
                 {
-                    AddData(d, ref data);
+                    data_string = client.DownloadString(queryUri);
                 }
-                Console.WriteLine("Uspesno dobavljeni podaci");
+                catch { }
+
+                if (data_string != "")
+                {
+                    dynamic json_data = js.Deserialize(data_string, typeof(object));
+
+
+                    foreach (Dictionary<string, object> d in json_data["data"])
+                    {
+                        AddData(d, ref data);
+                    }
+                }
             }
 
             return data;

@@ -85,8 +85,17 @@ namespace HciMiniProject
 
             data = getData(chosenRadioButtonOption, chosenInterval, chosenMaturity);
 
-            MakeLineGraph();
-            MakeBarGraph();
+            if (data.Count != 0)
+            {
+                MakeLineGraph();
+                MakeBarGraph();
+            }
+            else
+            {
+                ErrorWindow errorWindow = new ErrorWindow("An error has occured during the communication with the service. Check your connection or try later.");
+                errorWindow.Show();
+            }
+
             DataContext = this;
         }
 
@@ -240,15 +249,31 @@ namespace HciMiniProject
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            createChartBtn.IsEnabled = false;
+            try
+            {
+                createChartBtn.IsEnabled = false;
 
-            chosenInterval = GetIntervalValue();
-            chosenMaturity = GetMaturityValue();
+                chosenInterval = GetIntervalValue();
+                chosenMaturity = GetMaturityValue();
 
-            data = getData(chosenRadioButtonOption, chosenInterval, chosenMaturity);
-
-            MakeLineGraph();
-            MakeBarGraph();
+                data = getData(chosenRadioButtonOption, chosenInterval, chosenMaturity);
+                if (data.Count != 0)
+                {
+                    MakeLineGraph();
+                    MakeBarGraph();
+                }
+                else
+                {
+                    ErrorWindow errorWindow = new ErrorWindow("An error has occured during the communication with the service. Check your connection or try later.");
+                    errorWindow.Show();
+                }
+            }
+            catch (Exception exception)
+            {
+                ErrorWindow errorWindow = new ErrorWindow("An error has occured.");
+                errorWindow.Show();
+            }
+            
         }
 
         public void IntervalChanged(object sender, RoutedEventArgs e)
