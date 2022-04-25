@@ -83,18 +83,17 @@ namespace HciMiniProject
             SeriesCollection = new SeriesCollection();
             SeriesCollectionBar = new SeriesCollection();
 
+            informAboutDataRetrieving();
             data = getData(chosenRadioButtonOption, chosenInterval, chosenMaturity);
 
             if (data.Count != 0)
             {
                 MakeLineGraph();
                 MakeBarGraph();
+                hideDataRetrievingInfo();
             }
             else
-            {
-                ErrorWindow errorWindow = new ErrorWindow("An error has occured during the communication with the service. Check your connection or try later.");
-                errorWindow.Show();
-            }
+                showErrorWindow("An error has occured during the communication with the service. Check your connection or try later.");
 
             DataContext = this;
         }
@@ -122,9 +121,21 @@ namespace HciMiniProject
             return values;
         }
 
+        private void informAboutDataRetrieving()
+        {
+            retrievingDataLabel.Content = "Retrieving data...";
+        }
+
+        private void hideDataRetrievingInfo()
+        {
+            retrievingDataLabel.Content = "";
+        }
+
 
         private List<DataDateValue> getData(string name, string interval, string maturity)
         {
+            setCurrentlyDataLabels(name, interval, maturity);
+
             if (name == "RealGDP")
             {
                 YAxisName = "billions of dollars";
@@ -135,6 +146,36 @@ namespace HciMiniProject
                 YAxisName = "percent";
                 return API.API.GetTreasuryYieldData(interval, maturity);
             }
+        }
+
+        private void setCurrentlyDataLabels(string name, string interval, string maturity)
+        {
+            if (name.Equals("") && interval.Equals("") && maturity.Equals(""))
+                emptyCurrentlyDataLabels();
+            else
+            {
+                currentShowingLabel.Content = "Currently showing data for:";
+                currentIntervalLabel.Content = "Interval: " + interval;
+
+                if (name.Equals("RealGDP"))
+                {
+                    currentDataTypeLabel.Content = "GDP";
+                    currentMaturityLabel.Content = "";
+                }
+                else
+                {
+                    currentDataTypeLabel.Content = "Treasury";
+                    currentMaturityLabel.Content = "Maturity: " + maturity;
+                }
+            }
+        }
+
+        private void emptyCurrentlyDataLabels()
+        {
+            currentShowingLabel.Content = "";
+            currentDataTypeLabel.Content = "";
+            currentIntervalLabel.Content = "";
+            currentMaturityLabel.Content = "";
         }
 
         private void MakeLineGraph()
@@ -256,24 +297,31 @@ namespace HciMiniProject
                 chosenInterval = GetIntervalValue();
                 chosenMaturity = GetMaturityValue();
 
+                informAboutDataRetrieving();
                 data = getData(chosenRadioButtonOption, chosenInterval, chosenMaturity);
+
                 if (data.Count != 0)
                 {
                     MakeLineGraph();
                     MakeBarGraph();
+                    hideDataRetrievingInfo();
                 }
                 else
-                {
-                    ErrorWindow errorWindow = new ErrorWindow("An error has occured during the communication with the service. Check your connection or try later.");
-                    errorWindow.Show();
-                }
+                    showErrorWindow("An error has occured during the communication with the service. Check your connection or try later.");
             }
             catch (Exception exception)
             {
-                ErrorWindow errorWindow = new ErrorWindow("An error has occured.");
-                errorWindow.Show();
+                showErrorWindow("An error has occured.");
             }
             
+        }
+
+        private void showErrorWindow(string errorMessage)
+        {
+            retrievingDataLabel.Content = "";
+            emptyCurrentlyDataLabels();
+            ErrorWindow errorWindow = new ErrorWindow(errorMessage);
+            errorWindow.Show();
         }
 
         public void IntervalChanged(object sender, RoutedEventArgs e)

@@ -47,6 +47,25 @@
         <!--yellow header-->
         <Rectangle Grid.Column="1" Grid.ColumnSpan="2" Fill="#FFFF00" />
 
+        <StackPanel  Grid.Column="3" Margin="0 15 0 0">
+            <Label Name="currentShowingLabel"
+               FontSize="16"
+               Content="" />
+            <Label   Name="currentDataTypeLabel"
+               FontSize="16"
+                Margin="25 0 0 0"
+               Content="GPA/Treasury" />
+            <Label   Name="currentIntervalLabel"
+               FontSize="16"
+                Margin="25 0 0 0"
+               Content="Interval:" />
+            <Label   Name="currentMaturityLabel"
+               FontSize="16"
+                Margin="25 0 0 0"
+               Content="Maturity:" />
+        </StackPanel>
+        
+
         <!--shadow for logo-->
         <Border Margin="40,46,44,48"
             BorderBrush="Black"
@@ -99,6 +118,13 @@
         <Label x:Name="maturityLabel" Content="Maturity:" Grid.Column="1" Grid.Row="0" Margin="20 75 10 25" HorizontalAlignment="Left"  Foreground="#000000" FontSize="25"/>
         <ComboBox  x:Name="maturityCombobox" Grid.Column="1"  Margin="140 85 50 35" Grid.Row="0" IsEditable="False" FontSize="18"  SelectionChanged="MaturityChanged"/>
 
+        <Label Name="retrievingDataLabel" 
+               Grid.Column="1" 
+               VerticalAlignment="Bottom" HorizontalContentAlignment="Left"
+               Content=""
+               FontSize="16"
+               Margin="55 0 0 0"/>
+        
         <!--menu items-->
         <StackPanel Grid.Row="1">
             <RadioButton x:Name="GDP" Content="GDP" Height="50" FontSize="35" 
