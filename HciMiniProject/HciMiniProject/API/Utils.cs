@@ -12,7 +12,7 @@ namespace HciMiniProject.API
         public const int GDPIntervalDefaulIndex = 1;            // default = annual
 
         public static List<string> TreasureIntervals { get; private set; }
-        public const int TreasureIntervalsDefaulIndex = 2;      // default = monthly
+        public const int TreasureIntervalsDefaulIndex = 1;      // default = monthly
 
         public static List<string> TreasureMaturity { get; private set; }
         public const int TreasureMaturityDefaulIndex = 4;       // default = 10 years
@@ -26,7 +26,6 @@ namespace HciMiniProject.API
             GDPIntervals.Add("Quarterly");
             GDPIntervals.Add("Annual");         // default
 
-            TreasureIntervals.Add("Daily");
             TreasureIntervals.Add("Weekly");
             TreasureIntervals.Add("Monthly");   // default
 

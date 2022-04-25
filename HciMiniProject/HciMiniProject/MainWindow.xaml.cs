@@ -63,7 +63,7 @@ namespace HciMiniProject
         private TableWindow tableWindow;
 
         public string chosenRadioButtonOption = "RealGDP";    // GDP or Treasure
-        public string chosenInterval = "annual";    // annual/quaterly OR daily/weekly/monthly
+        public string chosenInterval = "annual";    // annual/quaterly OR weekly/monthly
         public string chosenMaturity = "10year";
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -44,6 +44,7 @@ namespace HciMiniProject.API
                     }
                 }
             }
+            data.Reverse();
             return data;
         }
 
@@ -86,7 +87,7 @@ namespace HciMiniProject.API
                     }
                 }
             }
-
+            data.Reverse();
             return data;
         }
 
